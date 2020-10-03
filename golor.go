@@ -2,14 +2,16 @@ package main
 
 import (
 	"fmt"
-	"github.com/urfave/cli"
-	"golang.org/x/crypto/ssh/terminal"
 	"io/ioutil"
 	"math"
 	"math/rand"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/mattn/go-colorable"
+	"github.com/urfave/cli"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 func main() {
@@ -96,17 +98,17 @@ func Action(c *cli.Context) {
 	if terminal.IsTerminal(0) && c.NArg() == 0 && text == "" {
 		cli.ShowAppHelpAndExit(c, 1)
 	}
-	fmt.Print(rainbow(text, c))
+	fmt.Fprint(colorable.NewColorableStdout(), rainbow(text, c))
 }
 
 func rainbowAction(c *cli.Context) {
 	text := getText(c)
-	fmt.Print(rainbow(text, c))
+	fmt.Fprint(colorable.NewColorableStdout(), rainbow(text, c))
 }
 
 func auroraAction(c *cli.Context) {
 	text := getText(c)
-	fmt.Print(aurora(text, c))
+	fmt.Fprint(colorable.NewColorableStdout(), aurora(text, c))
 }
 
 func rainbow(text string, c *cli.Context) string {
